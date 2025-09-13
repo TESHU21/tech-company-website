@@ -8,22 +8,27 @@ export default function MissionVisionValues() {
     {
       icon: ShieldCheck,
       title: 'Integrity',
-      description: 'We act with honesty, transparency, and accountability in everything we do.'
+      description: 'We act with honesty, transparency, and accountability in everything we do.',
+        className:" text-blue-600"
     },
     {
       icon: Users,
       title: 'Customer-Centricity',
-      description: 'We prioritize user outcomes and build solutions that deliver real value.'
+      description: 'We prioritize user outcomes and build solutions that deliver real value.',
+        className:" text-green-600"
     },
     {
       icon: Award,
       title: 'Excellence',
-      description: 'We hold ourselves to high standards and continuously improve our craft.'
+      description: 'We hold ourselves to high standards and continuously improve our craft.',
+      className:" text-amber-500"
     },
     {
       icon: Rocket,
       title: 'Innovation',
-      description: 'We embrace curiosity and experiment to find better ways to solve problems.'
+      description: 'We embrace curiosity and experiment to find better ways to solve problems.',
+       className:" text-purple-600"
+
     }
   ];
 
@@ -35,9 +40,8 @@ export default function MissionVisionValues() {
           <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Target className="w-6 h-6 text-primary" />
-                </div>
+                  <Target className="w-12 h-12 text-blue-600" />
+                
                 <div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">Our Mission</h3>
                   <p className="text-muted-foreground">
@@ -53,9 +57,9 @@ export default function MissionVisionValues() {
           <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Lightbulb className="w-6 h-6 text-primary" />
-                </div>
+                
+                  <Lightbulb className="w-12 h-12 text-orange-500" />
+               
                 <div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">Our Vision</h3>
                   <p className="text-muted-foreground">
@@ -76,7 +80,7 @@ export default function MissionVisionValues() {
               <Card key={value.title} className="h-full group hover:shadow-md transition-all">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <value.icon className="w-6 h-6 text-primary" />
+                    <value.icon className={`${value.className} w-8 h-8`} />
                   </div>
                   <h5 className="text-lg font-semibold text-foreground mb-2">{value.title}</h5>
                   <p className="text-sm text-muted-foreground">{value.description}</p>

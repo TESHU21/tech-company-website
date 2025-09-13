@@ -12,18 +12,22 @@ export default function WhoWeAre() {
         {/* Left side - Video / Image */}
         <div className="relative ">
           <Image
-            src={"/images/HeroImages.webp"}
+            src={"/images/whoweare.jpg"}
             alt="Company Profile Video"
             width={1200}
             height={675}
             priority
-            className="rounded-xl  transition-transform duration-500 group-hover:scale-105"
+            className="rounded-xl  transition-transform duration-500 group-hover:scale-105 dark:hidden"
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 bg-white/70 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:bg-primary/80 transition-colors">
-              <ArrowRight className="text-primary w-6 h-6 group-hover:text-white transition-colors" />
-            </div>
-          </div>
+          <Image
+            src={"/images/whoweare black.jpg"}
+            alt="Company Profile Video"
+            width={1200}
+            height={675}
+            priority
+            className="rounded-xl  transition-transform duration-500 group-hover:scale-105 hidden dark:flex "
+          />
+       
           {/* Optional floating icons for creativity */}
           <div className="absolute top-0 left-0 w-8 h-8 bg-primary/20 rounded-full mix-blend-multiply animate-float opacity-50"></div>
           <div className="absolute bottom-4 right-4 w-12 h-12 bg-blue-500/20 rounded-full mix-blend-multiply animate-float opacity-40" style={{ animationDelay: '1.5s' }}></div>

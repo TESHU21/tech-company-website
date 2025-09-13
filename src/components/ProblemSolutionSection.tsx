@@ -6,7 +6,8 @@ export function ProblemSolutionSection() {
     {
       icon: AlertTriangle,
       title: "Outdated Technology",
-      description: "Legacy systems holding back your growth and innovation potential."
+      description: "Legacy systems holding back your growth and innovation potential.",
+      
     },
     {
       icon: Target,
@@ -24,17 +25,22 @@ export function ProblemSolutionSection() {
     {
       icon: Lightbulb,
       title: "Modern Architecture",
-      description: "Cloud-native solutions built for scale, performance, and reliability."
+      description: "Cloud-native solutions built for scale, performance, and reliability.",
+      className:"text-amber-500"
     },
     {
       icon: Target,
       title: "User-Centered Design",
       description: "Intuitive interfaces that delight users and drive engagement."
+      ,
+       className:"text-blue-600"
     },
     {
       icon: Zap,
       title: "Future-Proof Solutions",
       description: "Scalable infrastructure that grows with your business needs."
+         ,
+       className:"text-green-600"
     }
   ];
 
@@ -58,12 +64,12 @@ export function ProblemSolutionSection() {
               Common Challenges
             </h3>
             {problems.map((problem, index) => (
-              <Card key={index} className="border-destructive/20 bg-destructive/5">
+              <Card key={index} className="border-primary/20 bg-primary/5">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
                       <div className="w-12 h-12 bg-destructive/10 rounded-lg flex items-center justify-center">
-                        <problem.icon className="w-6 h-6 text-destructive" />
+                        <problem.icon className={`w-6 h-6 text-destructive `} />
                       </div>
                     </div>
                     <div>
@@ -90,9 +96,8 @@ export function ProblemSolutionSection() {
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <solution.icon className="w-6 h-6 text-primary" />
-                      </div>
+                        <solution.icon className={`w-8 h-8 ${solution.className}`} />
+                      
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-foreground mb-2">

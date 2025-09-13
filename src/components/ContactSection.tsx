@@ -46,25 +46,29 @@ export function ContactSection() {
       icon: Mail,
       title: "Email Us",
       details: "hello@techflow.com",
-      description: "Send us an email anytime"
+      description: "Send us an email anytime",
+      className:" text-blue-600"
     },
     {
       icon: Phone,
       title: "Call Us",
       details: "+1 (555) 123-4567",
-      description: "Mon-Fri from 8am to 5pm"
+      description: "Mon-Fri from 8am to 5pm",
+      className:"text-green-600"
     },
     {
       icon: MapPin,
       title: "Visit Us",
       details: "123 Tech Street, San Francisco, CA",
-      description: "Come say hello at our office"
+      description: "Come say hello at our office",
+        className:"text-amber-600"
     },
     {
       icon: Clock,
       title: "Working Hours",
       details: "Mon - Fri: 8:00am - 5:00pm",
-      description: "We're here to help you"
+      description: "We're here to help you",
+      className:"text-red-600"
     }
   ];
 
@@ -187,7 +191,7 @@ export function ContactSection() {
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <info.icon className="w-6 h-6 text-primary" />
+                          <info.icon className={`w-6 h-6  ${info.className}`}/>
                         </div>
                       </div>
                       <div>
