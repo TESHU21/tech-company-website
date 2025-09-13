@@ -62,15 +62,15 @@ export default function Footer() {
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-primary" />
+                  <Phone className="w-6 h-6 text-primary" />
                   <span className="text-muted-foreground">+1 (555) 123-4567</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-primary" />
+                  <Mail className="w-6 h-6 text-blue-600" />
                   <span className="text-muted-foreground">hello@techflow.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-primary" />
+                  <MapPin className="w-6 h-6 text-red-600" />
                   <span className="text-muted-foreground">San Francisco, CA</span>
                 </div>
               </div>
