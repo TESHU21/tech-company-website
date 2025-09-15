@@ -8,7 +8,7 @@ export default function ServicesPage() {
     <>
       {/* <FloatingElements /> */}
       <Header />
-      <main className="relative pt-20">
+      <main className="relative ">
         <ServicesSection />
       </main>
     

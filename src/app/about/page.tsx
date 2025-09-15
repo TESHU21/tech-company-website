@@ -1,20 +1,20 @@
-import WhoWeAre from './(components)/WhoWeAre';
-import MissionVisionValues from './(components)/MissionVisionValues';
-import TeamSection from './(components)/TeamSection';
-import TestimonialsSection from './(components)/TestimonialsSection';
+
+import AboutHeader from './(components)/AboutHeader';
+import { Header } from '@/components/Header';
+import AboutUs from './(components)/AboutUs';
 
 export default function AboutPage() {
   return (
-    <>
+    
     
      
-      <main className="relative  ">
-        <WhoWeAre />
-        <MissionVisionValues />
-        <TeamSection />
-        <TestimonialsSection />
-      </main>
+      <div className=" ">
+        <Header/>
+        <AboutHeader/>
+        <AboutUs/>
+      
+      </div>
     
-    </>
+    
   );
 }

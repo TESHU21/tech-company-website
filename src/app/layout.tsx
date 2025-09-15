@@ -83,7 +83,8 @@ export default function RootLayout({
         </div>
 
         {/* Shared layout */}
-        <Header />
+        {/* <Header/> */}
+        
         <main className="relative min-h-screen">{children}</main>
         <Footer />
       </body>

@@ -7,8 +7,9 @@ export default function PortfolioPage() {
   return (
     <>
       <FloatingElements />
-      <Header />
-      <main className="relative pt-20">
+      <Header/>
+
+      <main className="relative ">
         <PortfolioSection />
       </main>
     </>

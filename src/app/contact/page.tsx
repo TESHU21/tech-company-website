@@ -7,8 +7,9 @@ export default function ContactPage() {
   return (
     <>
       <FloatingElements />
+      <Header/>
       
-      <main className="relative pt-20">
+      <main className="relative ">
         <ContactSection />
       </main>
     
