@@ -9,7 +9,7 @@ export default function AboutPage() {
     
      
       <div className=" ">
-        <Header/>
+    
         <AboutHeader/>
         <AboutUs/>
       

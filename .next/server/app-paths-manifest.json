@@ -3,5 +3,6 @@
   "/page": "app/page.js",
   "/about/page": "app/about/page.js",
   "/services/page": "app/services/page.js",
+  "/home/page": "app/home/page.js",
   "/portfolio/page": "app/portfolio/page.js"
 }

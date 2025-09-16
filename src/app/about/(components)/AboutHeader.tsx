@@ -3,10 +3,10 @@ import PageHeader from '@/components/PageHeader'
 
 const AboutHeader:React.FC = () => {
   return (
-    <div>
+    <div className=' '>
          <PageHeader
         title="About Us"
-        bgImage="/images/AboutH.webp" // ✅ replace with your image path
+        bgImage="/images/aboutImg.png" // ✅ replace with your image path
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About" },
