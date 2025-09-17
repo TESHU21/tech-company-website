@@ -46,9 +46,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, bgImage }) 
 
                 {/* Separator except for last item */}
                 {idx < breadcrumbs.length - 1 && (
-                  <BreadcrumbSeparator>
+                 
                     <SlashIcon className="w-4 h-4 text-white" />
-                  </BreadcrumbSeparator>
+                  
                 )}
               </div>
             ))}
