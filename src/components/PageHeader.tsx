@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "lucide-react";
 import { Header } from "./Header";
@@ -16,17 +16,26 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, bgImage }) => {
   return (
-    <div className="relative w-full border-b border-separate">
-      {/* Navbar always fixed on top */}
+    <div className="relative w-full border-b">
+      {/* Navbar */}
       <Header />
 
       {/* Hero Section */}
-      <div
-        className="relative w-full h-[300px] md:h-[400px] bg-cover bg-right  -z-40 flex items-center justify-end "
-        style={{ backgroundImage: `url(${bgImage})` }}
-      >
+      <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
+        {/* Optimized Background */}
+        <Image
+          src={bgImage}
+          alt="Page background"
+          fill
+          priority={false} // lazy load
+          placeholder="blur"
+          blurDataURL="/images/placeholder.jpg" // tiny low-res version
+          sizes="100vw"
+          className="object-cover object-right"
+        />
+
         {/* Overlay */}
-        <div className="absolute inset-0 bg bg-blue-950/70 dark:bg-black/85"></div>
+        <div className="absolute inset-0 bg-blue-950/70 dark:bg-black/85" />
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 flex flex-col items-center gap-6">
@@ -43,12 +52,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, bgImage }) 
                     <BreadcrumbLink>{crumb.label}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-
-                {/* Separator except for last item */}
                 {idx < breadcrumbs.length - 1 && (
-                 
-                    <SlashIcon className="w-4 h-4 text-white" />
-                  
+                  <SlashIcon className="w-4 h-4 text-white" />
                 )}
               </div>
             ))}
