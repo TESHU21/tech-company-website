@@ -6,7 +6,7 @@ const ServiceHeader:React.FC = () => {
     <div className=' '>
          <PageHeader
         title="Service"
-        bgImage="/images/ServiceImg.png" // ✅ replace with your image path
+        bgImage="/images/ServiceImg.webp" // ✅ replace with your image path
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Service" },

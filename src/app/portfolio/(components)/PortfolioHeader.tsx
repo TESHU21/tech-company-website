@@ -5,7 +5,7 @@ const PortfolioHeader:React.FC = () => {
     <div className=' '>
          <PageHeader
         title="Portfolio"
-        bgImage="/images/PortfolioImg.jpg" // ✅ replace with your image path
+        bgImage="/images/PortfolioImg.webp" // ✅ replace with your image path
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Portfolio" },

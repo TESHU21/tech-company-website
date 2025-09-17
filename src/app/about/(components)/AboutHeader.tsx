@@ -6,7 +6,7 @@ const AboutHeader:React.FC = () => {
     <div className=' '>
          <PageHeader
         title="About Us"
-        bgImage="/images/aboutImg.png" // ✅ replace with your image path
+        bgImage="/images/aboutImg.webp" // ✅ replace with your image path
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About" },
