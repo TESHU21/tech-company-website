@@ -2,12 +2,14 @@ import { Header } from '../../components/Header';
 import { PortfolioSection } from '../../components/PortfolioSection';
 import  Footer  from '../../components/Footer';
 import { FloatingElements } from '../../components/FloatingElements';
+import PortfolioHeader from './(components)/PortfolioHeader';
 
 export default function PortfolioPage() {
   return (
     <>
       <FloatingElements />
       <Header/>
+      <PortfolioHeader/>
 
       <main className="relative ">
         <PortfolioSection />

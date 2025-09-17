@@ -16,17 +16,17 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, bgImage }) => {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full border-b border-separate">
       {/* Navbar always fixed on top */}
       <Header />
 
       {/* Hero Section */}
       <div
-        className="relative w-full h-[300px] md:h-[500px] bg-cover bg-right  -z-40 flex items-center justify-end "
+        className="relative w-full h-[300px] md:h-[400px] bg-cover bg-right  -z-40 flex items-center justify-end "
         style={{ backgroundImage: `url(${bgImage})` }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 dark:bg-black/85"></div>
+        <div className="absolute inset-0 bg bg-blue-950/70 dark:bg-black/85"></div>
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 flex flex-col items-center gap-6">
