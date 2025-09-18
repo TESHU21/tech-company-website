@@ -11,7 +11,7 @@ export default function PortfolioPage() {
       <Header/>
       <PortfolioHeader/>
 
-      <main className="relative ">
+      <main className="relative  ">
         <PortfolioSection />
       </main>
     </>

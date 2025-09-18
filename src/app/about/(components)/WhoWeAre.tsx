@@ -12,7 +12,7 @@ export default function WhoWeAre() {
         {/* Left side - Video / Image */}
         <div className="relative ">
           <Image
-            src={"/images/whoweare.jpg"}
+            src={"/images/whoweare.webp"}
             alt="Company Profile Video"
             width={1200}
             height={675}

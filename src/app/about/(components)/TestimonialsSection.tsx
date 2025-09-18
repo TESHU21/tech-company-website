@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
           {testimonials.map((t) => (
             <Card key={t.author} className="h-full group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6 flex flex-col h-full">
-                <div className="flex items-center gap-1 mb-4 text-primary">
+                <div className="flex items-center gap-1 mb-4 text-yellow-400">
                   {Array.from({ length: t.rating ?? 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
