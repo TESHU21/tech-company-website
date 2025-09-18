@@ -14,7 +14,7 @@ const getDesktopNavLinkClasses = ({ isActive }: { isActive: boolean }) => `
   after:content-[''] after:absolute after:bottom-0 after:left-0 
   after:h-[2px] after:bg-primary after:transition-all 
   after:duration-300 after:ease-in-out
-  ${isActive ? "after:w-full " : "group-hover:after:w-full after:w-0"}
+  ${isActive ? "md:after:w-full " : "group-hover:after:w-full after:w-0"}
 `;
 
 type NavItem = {
@@ -49,11 +49,17 @@ export function Header() {
   }, []);
 
   // Handle scroll shadow effect
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+ useEffect(() => {
+  const handleScroll = () => {
+    const isMobile = window.innerWidth < 768; // Tailwind md breakpoint
+    const threshold = isMobile ? 10 : 80;   // bigger threshold for mobile
+    setIsScrolled(window.scrollY > threshold);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
 
   // Toggle dark/light theme
   const toggleTheme = () => {
@@ -131,27 +137,39 @@ export function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-transparent border-b-0 border-border">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-foreground hover:text-primary transition-colors duration-200 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="px-3 py-2">
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  Get Started
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
+       {/* Mobile Navigation */}
+{isMenuOpen && (
+  <div className="md:hidden fixed h-[300px] inset-x-0 top-16 bottom-0 z-40">
+    {/* Optional semi-transparent backdrop */}
+    <div
+      className="absolute inset-0 bg-black/20"
+      onClick={() => setIsMenuOpen(false)}
+      aria-hidden="true"
+    />
+
+    {/* Menu panel */}
+    <div className="relative z-50 bg-white dark:bg-black p-4 overflow-auto h-full shadow-md">
+      {navItems.map((item) => {
+                      const isActive = pathname === item.href;
+
+        return(
+        <Link
+          key={item.name}
+          href={item.href}
+          className={` text-foreground ${ getDesktopNavLinkClasses({isActive})}`}
+          onClick={() => setIsMenuOpen(false)}
+        >
+          {item.name}
+        </Link>)
+})}
+
+      <div className="mt-4 px-3 py-2">
+        <Button className="w-full bg-primary hover:bg-primary/90">Get Started</Button>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </header>
   );
