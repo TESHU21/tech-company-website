@@ -4,10 +4,18 @@ import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from "next/navigation";
+
 
 export  function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+    const pathname = usePathname();
+      const isHome = pathname === "/";
+
+
+
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -15,6 +23,20 @@ export  function Header() {
       setIsDark(true);
       document.documentElement.classList.add('dark');
     }
+  }, []);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      // if we’ve scrolled past 80px (navbar height)
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
@@ -33,7 +55,7 @@ export  function Header() {
   };
 
   const navItems = [
-    { name: 'Home', href: '/home' },
+    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Portfolio', href: '/portfolio' },
@@ -41,7 +63,13 @@ export  function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+   <header
+  className={`fixed top-0 left-0 right-0 z-50 ${
+    isScrolled
+      ? "dark:bg-black bg-white shadow-md"
+      : ` ${isHome ? "text-black dark:text-white" : "text-white"}`
+  }`}
+>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -52,12 +80,12 @@ export  function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-white">
+          <nav className={`hidden md:flex items-center space-x-8 `}>
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className={`${isScrolled?"":""} hover:text-primary transition-colors duration-200 font-medium`}
               >
                 {item.name}
               </Link>
@@ -84,7 +112,7 @@ export  function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex items-center space-x-2 z-10 ">
             <Button
               variant="ghost"
               size="icon"
@@ -115,7 +143,7 @@ export  function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-transparent z-50  border-b-0 border-border">
               {navItems.map((item) => (
                 <Link
                   key={item.name}

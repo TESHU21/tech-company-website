@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 export default function WhoWeAre() {
   return (
     <section id="about" className="bg-background py-4 ">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center md:mt-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid  grid-cols-1 md:grid-cols-2 gap-12 items-center md:mt-24">
         
         {/* Left side - Video / Image */}
         <div className="relative ">
@@ -36,7 +36,7 @@ export default function WhoWeAre() {
         {/* Right side - Content */}
         <div className="space-y-6">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Who We Are</h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className=" flex text-muted-foreground leading-relaxed">
             We are an emerging software development company dedicated to empowering businesses and individuals with cutting-edge technology.
           </p>
           <ul className="space-y-3">
