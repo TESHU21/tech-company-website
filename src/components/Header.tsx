@@ -1,98 +1,100 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Button } from './ui/button';
-import { Menu, X, Moon, Sun } from 'lucide-react';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// Utility function for NavLink classes
+const getDesktopNavLinkClasses = ({ isActive }: { isActive: boolean }) => `
+  relative flex items-center justify-center gap-2 group pb-2 
+  transition-colors duration-200 ease-in-out
+  ${isActive ? "" : "hover:text-blue-primary"}
+  after:content-[''] after:absolute after:bottom-0 after:left-0 
+  after:h-[2px] after:bg-primary after:transition-all 
+  after:duration-300 after:ease-in-out
+  ${isActive ? "after:w-full " : "group-hover:after:w-full after:w-0"}
+`;
 
-export  function Header() {
+type NavItem = {
+  name: string;
+  href: string;
+};
+
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-    const pathname = usePathname();
-      const isHome = pathname === "/";
 
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
+  // Navbar items
+  const navItems: NavItem[] = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Contact", href: "/contact" },
+  ];
 
-
+  // Load theme from localStorage
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
       setIsDark(true);
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     }
   }, []);
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      // if we’ve scrolled past 80px (navbar height)
-      if (window.scrollY > 80) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
 
+  // Handle scroll shadow effect
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 80);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Toggle dark/light theme
   const toggleTheme = () => {
+    const newTheme = isDark ? "light" : "dark";
     setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    localStorage.setItem("theme", newTheme);
   };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Contact', href: '/contact' },
-  ];
 
   return (
-   <header
-  className={`fixed top-0 left-0 right-0 z-50 ${
-    isScrolled
-      ? "dark:bg-black bg-white shadow-md"
-      : ` ${isHome ? "text-black dark:text-white" : "text-white"}`
-  }`}
->
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 ${
+        isScrolled
+          ? "dark:bg-black bg-white shadow-md"
+          : `${isHome ? "text-black dark:text-white" : "text-white"}`
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary">TechFlow</h1>
-            </div>
+            <h1 className="text-2xl font-bold text-primary">TechFlow</h1>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className={`hidden md:flex items-center space-x-8 `}>
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`${isScrolled?"":""} hover:text-primary transition-colors duration-200 font-medium`}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={getDesktopNavLinkClasses({ isActive })}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Theme Toggle & CTA */}
+          {/* Desktop Theme Toggle & CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
@@ -100,42 +102,30 @@ export  function Header() {
               onClick={toggleTheme}
               className="h-9 w-9"
             >
-              {isDark ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Button className="bg-primary hover:bg-primary/90">
               Get Started
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2 z-10 ">
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2 z-10">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
               className="h-9 w-9"
             >
-              {isDark ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              onClick={toggleMenu}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="h-9 w-9"
             >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
@@ -143,7 +133,7 @@ export  function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-transparent z-50  border-b-0 border-border">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-transparent border-b-0 border-border">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
