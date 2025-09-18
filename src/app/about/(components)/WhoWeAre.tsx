@@ -20,7 +20,7 @@ export default function WhoWeAre() {
             className="rounded-xl  transition-transform duration-500 group-hover:scale-105 dark:hidden"
           />
           <Image
-            src={"/images/whoweare black.jpg"}
+            src={"/images/whoweare black.webp"}
             alt="Company Profile Video"
             width={1200}
             height={675}
