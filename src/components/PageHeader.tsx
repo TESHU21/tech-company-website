@@ -16,7 +16,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, bgImage }) => {
   return (
-    <div className="relative w-full border-b">
+    <div className="relative w-full max-w-8xl mx-auto border-b ">
       {/* Navbar */}
       <Header />
 
