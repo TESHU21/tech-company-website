@@ -63,8 +63,8 @@ export function PortfolioSection() {
   const categories = ["All", "Web Development", "Mobile Development", "DevOps", "AI/ML", "Healthcare", "IoT"];
 
   return (
-    <section id="portfolio" className=" bg-background py-10">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="portfolio" className=" w-full max-w-8xl mx-auto bg-background py-10">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
             Our Portfolio
