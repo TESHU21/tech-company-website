@@ -73,7 +73,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background`}>
+      <body className={`${inter.className} bg-background  max-w-[1440px]`}>
         {/* Global background decoration */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-transparent to-blue-50/30" />
@@ -85,7 +85,7 @@ export default function RootLayout({
         {/* Shared layout */}
         {/* <Header/> */}
         
-        <main className="relative min-h-screen">{children}</main>
+        <main className="relative min-h-screen flex justify-center">{children}</main>
         <Footer />
       </body>
     </html>
