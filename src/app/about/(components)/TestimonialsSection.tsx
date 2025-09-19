@@ -40,8 +40,8 @@ const testimonials: Testimonial[] = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="pt-10 md:pt-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="max-w-8xl mx-auto  pt-10 md:pt-20 bg-background">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Testimonials</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

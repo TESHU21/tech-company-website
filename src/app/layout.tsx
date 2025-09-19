@@ -85,7 +85,7 @@ export default function RootLayout({
         {/* Shared layout */}
         {/* <Header/> */}
         
-        <main className="relative min-h-screen flex justify-center">{children}</main>
+        <main className="relative min-h-screen ">{children}</main>
         <Footer />
       </body>
     </html>
