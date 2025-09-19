@@ -73,7 +73,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background  max-w-[1440px]`}>
+      <body className={`${inter.className} bg-background `}>
         {/* Global background decoration */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-transparent to-blue-50/30" />

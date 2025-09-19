@@ -71,7 +71,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 ${
+      className={`fixed  max-w-8xl mx-auto top-0 left-0 right-0 z-50 ${
         isScrolled
           ? "dark:bg-black bg-white shadow-md"
           : `${isHome ? "text-black dark:text-white" : "text-white"}`
