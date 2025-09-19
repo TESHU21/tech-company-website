@@ -33,8 +33,8 @@ export default function MissionVisionValues() {
   ];
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 max-w-8xl w-full bg-background">
+      <div className="  px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Mission */}
           <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">

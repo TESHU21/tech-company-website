@@ -7,14 +7,14 @@ import ServiceHeader from './(components)/ServiceHeader';
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className='flex flex-col'>
       {/* <FloatingElements /> */}
       <Header />
       <ServiceHeader/>
-      <main className="relative ">
+     
         <ServicesSection />
-      </main>
     
-    </>
+    </div>
+  
   );
 }
