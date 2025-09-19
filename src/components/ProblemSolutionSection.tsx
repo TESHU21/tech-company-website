@@ -45,8 +45,8 @@ export function ProblemSolutionSection() {
   ];
 
   return (
-    <section className=" pt-10 md:pt-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full max-w-8xl mx-auto pt-10 md:pt-20 bg-background">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
             From Problems to Solutions
