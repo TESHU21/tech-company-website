@@ -48,7 +48,7 @@ const teamMembers: TeamMember[] = [
 
 export default function TeamSection() {
   return (
-    <section id="team" className="w-full max-w-8xl mx-auto bg-background">
+    <section id="team" className="w-full max-w-8xl mx-auto bg-background ">
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Our Team</h2>
@@ -57,7 +57,7 @@ export default function TeamSection() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
           {teamMembers.map((member) => (
             <Card key={member.name} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">

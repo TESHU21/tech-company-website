@@ -69,16 +69,28 @@ export function Header() {
     localStorage.setItem("theme", newTheme);
   };
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   return (
     <header
-      className={`fixed  max-w-8xl mx-auto top-0 left-0 right-0 z-50 ${
+      className={`fixed w-full  md:max-w-8xl mx-auto top-0 left-0 right-0 z-50 ${
         isScrolled
           ? "dark:bg-black bg-white shadow-md"
           : `${isHome ? "text-black dark:text-white" : "text-white"}`
       }`}
     >
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className=" lg:px-8">
+        <div className="flex items-center justify-around h-16">
           {/* Logo */}
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-primary">TechFlow</h1>
@@ -116,7 +128,7 @@ export function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2 z-10">
+          <div className="md:hidden   z-10">
             <Button
               variant="ghost"
               size="icon"
@@ -139,8 +151,8 @@ export function Header() {
         {/* Mobile Navigation */}
        {/* Mobile Navigation */}
 {isMenuOpen && (
-  <div className="md:hidden fixed h-[300px] inset-x-0 top-16 bottom-0 z-40">
-    {/* Optional semi-transparent backdrop */}
+  <div className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40">
+    {/* Backdrop */}
     <div
       className="absolute inset-0 bg-black/20"
       onClick={() => setIsMenuOpen(false)}
@@ -148,27 +160,33 @@ export function Header() {
     />
 
     {/* Menu panel */}
-    <div className="relative z-50 bg-white dark:bg-black p-4 overflow-auto h-full shadow-md">
+    <div className="relative z-50 bg-white dark:bg-black mx-auto p-4 h-auto w-full overflow-y-auto shadow-md">
       {navItems.map((item) => {
-                      const isActive = pathname === item.href;
+        const isActive = pathname === item.href;
 
-        return(
-        <Link
-          key={item.name}
-          href={item.href}
-          className={` text-foreground ${ getDesktopNavLinkClasses({isActive})}`}
-          onClick={() => setIsMenuOpen(false)}
-        >
-          {item.name}
-        </Link>)
-})}
+        return (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`block text-foreground ${getDesktopNavLinkClasses({
+              isActive,
+            })}`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {item.name}
+          </Link>
+        );
+      })}
 
       <div className="mt-4 px-3 py-2">
-        <Button className="w-full bg-primary hover:bg-primary/90">Get Started</Button>
+        <Button className="w-full bg-primary hover:bg-primary/90">
+          Get Started
+        </Button>
       </div>
     </div>
   </div>
 )}
+
 
       </div>
     </header>
