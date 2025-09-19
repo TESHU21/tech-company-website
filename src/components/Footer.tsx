@@ -131,7 +131,7 @@ export default function Footer() {
 
         {/* Newsletter Signup */}
         <div className="py-8 border-t border-border">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-around gap-6">
             <div>
               <h4 className="text-lg font-semibold text-foreground mb-2">
                 Stay Updated
@@ -140,11 +140,11 @@ export default function Footer() {
                 Get the latest news and updates from TechFlow.
               </p>
             </div>
-            <div className="flex w-full md:w-auto">
+            <div className="flex  flex-col md:flex-row gap-4 md:gap-0 w-full mx-auto md:w-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-80 px-4 py-2 border border-border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="flex-1  md:w-80 px-4 py-2 border border-border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
               <button className="px-6 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors flex items-center">
                 Subscribe
