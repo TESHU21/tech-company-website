@@ -82,13 +82,14 @@ export function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header
-      className={`fixed w-full  md:max-w-8xl mx-auto top-0 left-0 right-0 z-50 ${
-        isScrolled
-          ? "dark:bg-black bg-white shadow-md"
-          : `${isHome ? "text-black dark:text-white" : "text-white"}`
-      }`}
-    >
+   <header
+  className={`fixed w-full md:max-w-8xl mx-auto top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    isScrolled
+      ? "backdrop-blur-lg bg-white/70 dark:bg-black/60 border-b border-white/20 dark:border-white/10 shadow-lg"
+      : `${isHome ? "text-black dark:text-white" : "text-white"}`
+  }`}
+>
+
       <div className=" lg:px-8">
         <div className="flex items-center justify-around h-16">
           {/* Logo */}
