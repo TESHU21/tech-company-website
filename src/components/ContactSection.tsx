@@ -42,18 +42,24 @@ export function ContactSection() {
     },
   ];
 
-  // Server-side form submit
+  // Server-side form submit using JSON
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = {
+      name: (form.name as HTMLInputElement).value,
+      email: (form.email as HTMLInputElement).value,
+      company: (form.company as HTMLInputElement).value,
+      message: (form.message as HTMLTextAreaElement).value,
+    };
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
@@ -100,40 +106,76 @@ export function ContactSection() {
                     </p>
                   </div>
                 ) : (
-                  <form
-                    className="space-y-6"
-                    onSubmit={handleSubmit}
-                  >
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-foreground mb-2"
+                        >
                           Full Name *
                         </label>
-                        <Input id="name" name="name" type="text" required placeholder="John Doe" />
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required
+                          placeholder="John Doe"
+                        />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-foreground mb-2"
+                        >
                           Email Address *
                         </label>
-                        <Input id="email" name="email" type="email" required placeholder="john@example.com" />
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          placeholder="john@example.com"
+                        />
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-medium text-foreground mb-2"
+                      >
                         Company
                       </label>
-                      <Input id="company" name="company" type="text" placeholder="Your Company" />
+                      <Input
+                        id="company"
+                        name="company"
+                        type="text"
+                        placeholder="Your Company"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-foreground mb-2"
+                      >
                         Message *
                       </label>
-                      <Textarea id="message" name="message" required rows={5} placeholder="Tell us about your project..." />
+                      <Textarea
+                        id="message"
+                        name="message"
+                        required
+                        rows={5}
+                        placeholder="Tell us about your project..."
+                      />
                     </div>
 
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                    <Button
+                      type="submit"
+                      className="w-full bg-primary hover:bg-primary/90"
+                      disabled={isLoading}
+                    >
                       {isLoading ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
@@ -144,7 +186,9 @@ export function ContactSection() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold text-foreground mb-6">Contact Information</h3>
+            <h3 className="text-2xl font-semibold text-foreground mb-6">
+              Contact Information
+            </h3>
             <div className="grid gap-6">
               {contactInfo.map((info, idx) => (
                 <Card key={idx} className="hover:shadow-md transition-shadow">
@@ -156,9 +200,15 @@ export function ContactSection() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-1">{info.title}</h4>
-                        <p className="text-foreground font-medium mb-1">{info.details}</p>
-                        <p className="text-muted-foreground text-sm">{info.description}</p>
+                        <h4 className="text-lg font-semibold text-foreground mb-1">
+                          {info.title}
+                        </h4>
+                        <p className="text-foreground font-medium mb-1">
+                          {info.details}
+                        </p>
+                        <p className="text-muted-foreground text-sm">
+                          {info.description}
+                        </p>
                       </div>
                     </div>
                   </CardContent>

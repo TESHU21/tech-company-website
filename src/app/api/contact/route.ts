@@ -1,14 +1,50 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextApiRequest, NextApiResponse } from "next";
+import sgMail from "@sendgrid/mail";
 
-export async function POST(req: NextRequest) {
-  const formData = await req.formData();
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const company = formData.get("company");
-  const message = formData.get("message");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-  // Example: send email via SendGrid, Mailgun, or save to DB
-  console.log({ name, email, company, message });
+type Data = {
+  success: boolean;
+  message: string;
+};
 
-  return NextResponse.json({ success: true });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, message: "Method not allowed" });
+  }
+
+  const { name, email, company, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ success: false, message: "Missing required fields" });
+  }
+
+  const msg = {
+    to: process.env.SENDGRID_TO_EMAIL,
+    from: process.env.SENDGRID_FROM_EMAIL,
+    subject: `New Contact Form Submission from ${name}`,
+    text: `
+      Name: ${name}
+      Email: ${email}
+      Company: ${company || "N/A"}
+      Message: ${message}
+    `,
+    html: `
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Company:</strong> ${company || "N/A"}</p>
+      <p><strong>Message:</strong><br/>${message}</p>
+    `,
+  };
+
+  try {
+    await sgMail.send(msg);
+    res.status(200).json({ success: true, message: "Email sent successfully" });
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to send email" });
+  }
 }
