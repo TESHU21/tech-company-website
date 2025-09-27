@@ -49,10 +49,10 @@ export function ContactSection() {
 
     const form = e.currentTarget;
     const formData = {
-      name: (form.name as HTMLInputElement).value,
-      email: (form.email as HTMLInputElement).value,
-      company: (form.company as HTMLInputElement).value,
-      message: (form.message as HTMLTextAreaElement).value,
+      name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+      email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+      company: (form.elements.namedItem('company') as HTMLInputElement)?.value || '',
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
     };
 
     try {
