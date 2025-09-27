@@ -1,24 +1,12 @@
-"use client";
+// src/app/contact/page.tsx
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
-import { useState, FormEvent } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-
-interface ContactInfo {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  details: string;
-  description: string;
-  className: string;
-}
-
-export function ContactSection() {
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-
-  const contactInfo: ContactInfo[] = [
+export default function ContactPage() {
+  const contactInfo = [
     {
       icon: Mail,
       title: "Email Us",
@@ -49,24 +37,8 @@ export function ContactSection() {
     },
   ];
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-
-    // If you want to submit via Netlify form POST manually
-    // const form = e.currentTarget;
-    // const data = new FormData(form);
-    // await fetch("/", {
-    //   method: "POST",
-    //   body: data,
-    // });
-  };
-
   return (
-    <section
-      id="contact"
-      className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20"
-    >
+    <section className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
@@ -86,129 +58,120 @@ export function ContactSection() {
                 <CardTitle>Send us a message</CardTitle>
               </CardHeader>
               <CardContent>
-                {isSubmitted ? (
-                  <div className="text-center py-8">
-                    <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
-                      Message Sent!
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Thank you for your message. We'll get back to you soon.
-                    </p>
-                  </div>
-                ) : (
-                  <form
-                    name="contact"
-                    method="POST"
-                    data-netlify="true"
-                    netlify-honeypot="bot-field"
-                    className="space-y-6"
-                    onSubmit={handleSubmit}
-                  >
-                    {/* Hidden inputs for Netlify */}
-                    <input type="hidden" name="form-name" value="contact" />
-                    <p className="hidden">
-                      <label>
-                        Don’t fill this out: <input name="bot-field" />
-                      </label>
-                    </p>
+                <form
+                  name="contact"
+                  method="POST"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  action="/thank-you"
+                  className="space-y-6"
+                >
+                  {/* Netlify Hidden Fields */}
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p className="hidden">
+                    <label>
+                      Don’t fill this out: <input name="bot-field" />
+                    </label>
+                  </p>
 
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium text-foreground mb-2"
-                        >
-                          Full Name *
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          placeholder="John Doe"
-                        />
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-foreground mb-2"
-                        >
-                          Email Address *
-                        </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                    </div>
-
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label
-                        htmlFor="company"
+                        htmlFor="name"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        Company
+                        Full Name *
                       </label>
                       <Input
-                        id="company"
-                        name="company"
+                        id="name"
+                        name="name"
                         type="text"
-                        placeholder="Your Company"
+                        required
+                        placeholder="John Doe"
                       />
                     </div>
-
                     <div>
                       <label
-                        htmlFor="message"
+                        htmlFor="email"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        Message *
+                        Email Address *
                       </label>
-                      <Textarea
-                        id="message"
-                        name="message"
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
                         required
-                        rows={5}
-                        placeholder="Tell us about your project..."
+                        placeholder="john@example.com"
                       />
                     </div>
+                  </div>
 
-                    <Button
-                      type="submit"
-                      className="w-full bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
+                  <div>
+                    <label
+                      htmlFor="company"
+                      className="block text-sm font-medium text-foreground mb-2"
                     >
-                      <Send className="w-4 h-4" /> Send Message
-                    </Button>
-                  </form>
-                )}
+                      Company
+                    </label>
+                    <Input
+                      id="company"
+                      name="company"
+                      type="text"
+                      placeholder="Your Company"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-foreground mb-2"
+                    >
+                      Message *
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      placeholder="Tell us about your project..."
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
+                  >
+                    Send Message
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-6">
-                Contact Information
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                We're here to help and answer any question you might have. We
-                look forward to hearing from you.
-              </p>
-            </div>
+            <h3 className="text-2xl font-semibold text-foreground mb-6">
+              Contact Information
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              We're here to help and answer any question you might have. We
+              look forward to hearing from you.
+            </p>
 
             <div className="grid gap-6">
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow">
+              {contactInfo.map((info, idx) => (
+                <Card
+                  key={idx}
+                  className="hover:shadow-md transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <info.icon className={`w-6 h-6 ${info.className}`} />
+                          <info.icon
+                            className={`w-6 h-6 ${info.className}`}
+                          />
                         </div>
                       </div>
                       <div>
@@ -226,17 +189,6 @@ export function ContactSection() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-
-            {/* Additional Info */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <h4 className="text-lg font-semibold text-foreground mb-2">
-                Quick Response
-              </h4>
-              <p className="text-muted-foreground text-sm">
-                We typically respond to all inquiries within 24 hours. For
-                urgent matters, please call us directly.
-              </p>
             </div>
           </div>
         </div>
