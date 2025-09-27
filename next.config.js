@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    // Add all domains you serve images from
+    domains: ["techfloweth.netlify.app"],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
