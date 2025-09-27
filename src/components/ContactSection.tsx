@@ -1,11 +1,16 @@
-// src/app/contact/page.tsx
+"use client";
+
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useState, FormEvent } from "react";
 
-export default function ContactPage() {
+export function ContactSection() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const contactInfo = [
     {
       icon: Mail,
@@ -37,16 +42,43 @@ export default function ContactPage() {
     },
   ];
 
+  // Server-side form submit
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        setIsSubmitted(true);
+        form.reset();
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
             Get In Touch
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to start your next project? We'd love to hear from you. Send
-            us a message and we'll respond as soon as possible.
+            Ready to start your next project? We'd love to hear from you.
           </p>
         </div>
 
@@ -58,132 +90,75 @@ export default function ContactPage() {
                 <CardTitle>Send us a message</CardTitle>
               </CardHeader>
               <CardContent>
-                <form
-                  name="contact"
-                  method="POST"
-                  data-netlify="true"
-                  netlify-honeypot="bot-field"
-                  action="/thank-you"
-                  className="space-y-6"
-                >
-                  {/* Netlify Hidden Fields */}
-                  <input type="hidden" name="form-name" value="contact" />
-                  <p className="hidden">
-                    <label>
-                      Don’t fill this out: <input name="bot-field" />
-                    </label>
-                  </p>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-foreground mb-2"
-                      >
-                        Full Name *
-                      </label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-foreground mb-2"
-                      >
-                        Email Address *
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        placeholder="john@example.com"
-                      />
-                    </div>
+                {isSubmitted ? (
+                  <div className="text-center py-8">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      Message Sent!
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Thank you for your message. We'll get back to you soon.
+                    </p>
                   </div>
-
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      Company
-                    </label>
-                    <Input
-                      id="company"
-                      name="company"
-                      type="text"
-                      placeholder="Your Company"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      Message *
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={5}
-                      placeholder="Tell us about your project..."
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
+                ) : (
+                  <form
+                    className="space-y-6"
+                    onSubmit={handleSubmit}
                   >
-                    Send Message
-                  </Button>
-                </form>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                          Full Name *
+                        </label>
+                        <Input id="name" name="name" type="text" required placeholder="John Doe" />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                          Email Address *
+                        </label>
+                        <Input id="email" name="email" type="email" required placeholder="john@example.com" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
+                        Company
+                      </label>
+                      <Input id="company" name="company" type="text" placeholder="Your Company" />
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                        Message *
+                      </label>
+                      <Textarea id="message" name="message" required rows={5} placeholder="Tell us about your project..." />
+                    </div>
+
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                      {isLoading ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold text-foreground mb-6">
-              Contact Information
-            </h3>
-            <p className="text-muted-foreground mb-8">
-              We're here to help and answer any question you might have. We
-              look forward to hearing from you.
-            </p>
-
+            <h3 className="text-2xl font-semibold text-foreground mb-6">Contact Information</h3>
             <div className="grid gap-6">
               {contactInfo.map((info, idx) => (
-                <Card
-                  key={idx}
-                  className="hover:shadow-md transition-shadow"
-                >
+                <Card key={idx} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <info.icon
-                            className={`w-6 h-6 ${info.className}`}
-                          />
+                          <info.icon className={`w-6 h-6 ${info.className}`} />
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-1">
-                          {info.title}
-                        </h4>
-                        <p className="text-foreground font-medium mb-1">
-                          {info.details}
-                        </p>
-                        <p className="text-muted-foreground text-sm">
-                          {info.description}
-                        </p>
+                        <h4 className="text-lg font-semibold text-foreground mb-1">{info.title}</h4>
+                        <p className="text-foreground font-medium mb-1">{info.details}</p>
+                        <p className="text-muted-foreground text-sm">{info.description}</p>
                       </div>
                     </div>
                   </CardContent>
