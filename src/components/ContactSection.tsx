@@ -1,32 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
+interface ContactInfo {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  details: string;
+  description: string;
+  className: string;
+}
+
 export function ContactSection() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(form)).toString(),
-      });
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Form submission error:", error);
-    }
-  };
-
-  const contactInfo = [
+  const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       title: "Email Us",
@@ -57,8 +49,24 @@ export function ContactSection() {
     },
   ];
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+
+    // If you want to submit via Netlify form POST manually
+    // const form = e.currentTarget;
+    // const data = new FormData(form);
+    // await fetch("/", {
+    //   method: "POST",
+    //   body: data,
+    // });
+  };
+
   return (
-    <section id="contact" className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20">
+    <section
+      id="contact"
+      className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20"
+    >
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
@@ -113,7 +121,13 @@ export function ContactSection() {
                         >
                           Full Name *
                         </label>
-                        <Input id="name" name="name" type="text" required placeholder="John Doe" />
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required
+                          placeholder="John Doe"
+                        />
                       </div>
                       <div>
                         <label
@@ -139,7 +153,12 @@ export function ContactSection() {
                       >
                         Company
                       </label>
-                      <Input id="company" name="company" type="text" placeholder="Your Company" />
+                      <Input
+                        id="company"
+                        name="company"
+                        type="text"
+                        placeholder="Your Company"
+                      />
                     </div>
 
                     <div>
@@ -173,7 +192,9 @@ export function ContactSection() {
           {/* Contact Information */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-semibold text-foreground mb-6">
+                Contact Information
+              </h3>
               <p className="text-muted-foreground mb-8">
                 We're here to help and answer any question you might have. We
                 look forward to hearing from you.
@@ -191,9 +212,15 @@ export function ContactSection() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-1">{info.title}</h4>
-                        <p className="text-foreground font-medium mb-1">{info.details}</p>
-                        <p className="text-muted-foreground text-sm">{info.description}</p>
+                        <h4 className="text-lg font-semibold text-foreground mb-1">
+                          {info.title}
+                        </h4>
+                        <p className="text-foreground font-medium mb-1">
+                          {info.details}
+                        </p>
+                        <p className="text-muted-foreground text-sm">
+                          {info.description}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -203,7 +230,9 @@ export function ContactSection() {
 
             {/* Additional Info */}
             <div className="bg-background rounded-lg p-6 border border-border">
-              <h4 className="text-lg font-semibold text-foreground mb-2">Quick Response</h4>
+              <h4 className="text-lg font-semibold text-foreground mb-2">
+                Quick Response
+              </h4>
               <p className="text-muted-foreground text-sm">
                 We typically respond to all inquiries within 24 hours. For
                 urgent matters, please call us directly.
@@ -212,14 +241,6 @@ export function ContactSection() {
           </div>
         </div>
       </div>
-
-      {/* Hidden form for Netlify to detect */}
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="company" />
-        <textarea name="message"></textarea>
-      </form>
     </section>
   );
 }
