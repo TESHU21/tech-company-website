@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent,useEffect } from "react";
 
 export function ContactSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -79,6 +79,19 @@ export function ContactSection() {
       setIsLoading(false);
     }
   };
+  // 
+  useEffect(()=>{
+    if(isSubmitted){
+      const timer=setTimeout(()=>{
+        setIsSubmitted(false)
+      },4000)
+            return () => clearTimeout(timer);
+
+
+    }
+  }
+  , [isSubmitted]
+)
 
   return (
     <section className="w-full max-w-8xl mx-auto bg-background py-10 md:py-20">
