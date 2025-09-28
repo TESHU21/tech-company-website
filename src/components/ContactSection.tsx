@@ -62,14 +62,19 @@ export function ContactSection() {
         body: JSON.stringify(formData),
       });
 
+      const result = await res.json();
+      
       if (res.ok) {
         setIsSubmitted(true);
         form.reset();
+        console.log("Form submitted successfully:", result);
       } else {
-        alert("Failed to send message. Please try again.");
+        console.error("Form submission failed:", result);
+        alert(`Failed to send message: ${result.message || "Please try again."}`);
       }
     } catch (err) {
-      alert("Something went wrong. Please try again.");
+      console.error("Network error:", err);
+      alert("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
     }
